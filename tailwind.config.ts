@@ -47,15 +47,22 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+        healthy: {
+          DEFAULT: "hsl(var(--healthy))",
+          foreground: "hsl(var(--healthy-foreground))",
+        },
+        glass: {
+          background: "hsl(var(--glass-background))",
+          border: "hsl(var(--glass-border))",
+        },
+        glow: {
+          cyan: "hsl(var(--glow-cyan))",
+          magenta: "hsl(var(--glow-magenta))",
+          lime: "hsl(var(--glow-lime))",
         },
       },
       borderRadius: {
@@ -84,6 +91,10 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-slow": "pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "scan": "scan 8s linear infinite",
+        "glitch-1": "glitch-1 0.3s infinite",
+        "glitch-2": "glitch-2 0.3s infinite",
       },
     },
   },
