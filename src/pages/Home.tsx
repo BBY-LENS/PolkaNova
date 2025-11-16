@@ -1,15 +1,30 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Heart3DCanvas } from '@/components/Heart3DCanvas';
+import { Heart2D } from '@/components/Heart2D';
+import { FlyingHearts } from '@/components/FlyingHearts';
+import { Butterflies } from '@/components/Butterflies';
 import { ScanLineOverlay } from '@/components/ScanLineOverlay';
+import { CircuitBackground } from '@/components/CircuitBackground';
 import { GlassCard } from '@/components/GlassCard';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Activity, Zap, Brain, Shield } from 'lucide-react';
 
 const Home = () => {
+  const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-16 relative">
+      <CircuitBackground />
       <ScanLineOverlay />
+      <FlyingHearts />
+      {theme === 'light' && <Butterflies />}
+      
+      {/* Theme Toggle */}
+      <div className="fixed top-24 right-8 z-50">
+        <ThemeToggle />
+      </div>
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -44,9 +59,9 @@ const Home = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative h-96"
+              className="relative h-96 flex items-center justify-center"
             >
-              <Heart3DCanvas status="healthy" className="w-full h-full" scale={1.5} />
+              <Heart2D status="healthy" className="w-80 h-80" />
             </motion.div>
           </div>
         </div>

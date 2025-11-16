@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Activity, BarChart3, AlertTriangle, Vote, MessageSquare } from 'lucide-react';
+import { Activity, BarChart3, TrendingUp, Wifi, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const Navigation = () => {
@@ -8,6 +8,9 @@ export const Navigation = () => {
   const navItems = [
     { path: '/', label: 'Home', icon: Activity },
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
+    { path: '/analytics', label: 'Analytics', icon: TrendingUp },
+    { path: '/network-status', label: 'Network', icon: Wifi },
+    { path: '/about', label: 'About', icon: Info },
   ];
 
   return (

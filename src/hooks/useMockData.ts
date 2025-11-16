@@ -11,7 +11,12 @@ export type ParachainData = {
   collatorLiveness: number;
 };
 
-export const useMockNetworkData = () => {
+export type ParachainExtended = ParachainData & {
+  activity: number;
+  xcmMessages: number;
+};
+
+export const useMockData = () => {
   const [relayStatus, setRelayStatus] = useState<NetworkStatus>('healthy');
   const [finality, setFinality] = useState(7);
   const [blockProduction, setBlockProduction] = useState(6);
@@ -31,15 +36,15 @@ export const useMockNetworkData = () => {
     }))
   );
 
-  const [parachains] = useState<ParachainData[]>([
-    { id: 1, name: 'Acala', status: 'healthy', congestion: 15, hrmpQueue: 23, collatorLiveness: 99 },
-    { id: 2, name: 'Moonbeam', status: 'healthy', congestion: 22, hrmpQueue: 45, collatorLiveness: 98 },
-    { id: 3, name: 'Astar', status: 'warning', congestion: 67, hrmpQueue: 156, collatorLiveness: 95 },
-    { id: 4, name: 'Bifrost', status: 'healthy', congestion: 18, hrmpQueue: 34, collatorLiveness: 99 },
-    { id: 5, name: 'Phala', status: 'healthy', congestion: 12, hrmpQueue: 28, collatorLiveness: 100 },
-    { id: 6, name: 'Centrifuge', status: 'warning', congestion: 54, hrmpQueue: 134, collatorLiveness: 96 },
-    { id: 7, name: 'Parallel', status: 'critical', congestion: 89, hrmpQueue: 267, collatorLiveness: 87 },
-    { id: 8, name: 'Clover', status: 'healthy', congestion: 19, hrmpQueue: 41, collatorLiveness: 98 },
+  const [parachains] = useState<ParachainExtended[]>([
+    { id: 1, name: 'Acala', status: 'healthy', congestion: 15, hrmpQueue: 23, collatorLiveness: 99, activity: 1250, xcmMessages: 342 },
+    { id: 2, name: 'Moonbeam', status: 'healthy', congestion: 22, hrmpQueue: 45, collatorLiveness: 98, activity: 2100, xcmMessages: 567 },
+    { id: 3, name: 'Astar', status: 'warning', congestion: 67, hrmpQueue: 156, collatorLiveness: 95, activity: 890, xcmMessages: 123 },
+    { id: 4, name: 'Bifrost', status: 'healthy', congestion: 18, hrmpQueue: 34, collatorLiveness: 99, activity: 1560, xcmMessages: 445 },
+    { id: 5, name: 'Phala', status: 'healthy', congestion: 12, hrmpQueue: 28, collatorLiveness: 100, activity: 780, xcmMessages: 234 },
+    { id: 6, name: 'Centrifuge', status: 'warning', congestion: 54, hrmpQueue: 134, collatorLiveness: 96, activity: 650, xcmMessages: 178 },
+    { id: 7, name: 'Parallel', status: 'critical', congestion: 89, hrmpQueue: 267, collatorLiveness: 87, activity: 340, xcmMessages: 89 },
+    { id: 8, name: 'Clover', status: 'healthy', congestion: 19, hrmpQueue: 41, collatorLiveness: 98, activity: 920, xcmMessages: 298 },
   ]);
 
   useEffect(() => {
@@ -76,12 +81,21 @@ export const useMockNetworkData = () => {
   }, []);
 
   return {
-    relayStatus,
-    finality,
-    blockProduction,
-    validatorRotation,
+    relayChain: {
+      status: relayStatus,
+      finality,
+      blockProduction
+    },
+    networkStatus: {
+      blockProduction: blockProduction * 15,
+      validatorPerformance: validatorRotation,
+      validatorRotation
+    },
     blockData,
     finalityData,
     parachains
   };
 };
+
+// Keep old export for backward compatibility
+export const useMockNetworkData = useMockData;
