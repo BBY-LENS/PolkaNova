@@ -17,11 +17,11 @@ export const Heart3D = ({ status, scale = 1 }: HeartProps) => {
 
   useFrame((state) => {
     if (meshRef.current) {
-      // Rotation
-      meshRef.current.rotation.y += 0.01;
-      
-      // Pulse effect
-      const pulse = Math.sin(state.clock.elapsedTime * speed) * 0.1 * intensity + 1;
+      // Heartbeat pump effect (no rotation)
+      const time = state.clock.elapsedTime * speed;
+      // Create a heartbeat pattern: quick pump in, quick pump out, pause
+      const heartbeat = Math.abs(Math.sin(time * 2)) * Math.exp(-((time * 2) % (Math.PI * 2)) / 2);
+      const pulse = heartbeat * 0.15 * intensity + 1;
       meshRef.current.scale.set(pulse * scale, pulse * scale, pulse * scale);
     }
   });
@@ -44,7 +44,7 @@ export const Heart3D = ({ status, scale = 1 }: HeartProps) => {
   };
 
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]}>
+    <mesh ref={meshRef} position={[0, 0, 0]} rotation={[Math.PI, 0, 0]}>
       <extrudeGeometry args={[heartShape, extrudeSettings]} />
       <meshStandardMaterial
         color={color}
