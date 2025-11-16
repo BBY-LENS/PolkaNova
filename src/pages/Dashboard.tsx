@@ -5,6 +5,7 @@ import { Heart3DCanvas } from '@/components/Heart3DCanvas';
 import { NetworkChart } from '@/components/NetworkChart';
 import { ScanLineOverlay } from '@/components/ScanLineOverlay';
 import { useMockNetworkData } from '@/hooks/useMockData';
+import { useAIChat } from '@/hooks/useAIChat';
 import { Activity, Box, AlertTriangle, Vote, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,39 +13,19 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 const Dashboard = () => {
   const {
-    relayStatus,
-    finality,
-    blockProduction,
-    validatorRotation,
+    relayChain,
+    networkStatus,
     blockData,
     finalityData,
     parachains
   } = useMockNetworkData();
 
-  const [chatMessages, setChatMessages] = useState([
-    { role: 'bot', text: 'Hi! I\'m PulseBot 🤖. Ask me about network anomalies or parachain health!' }
-  ]);
+  const { messages: chatMessages, sendMessage, isLoading } = useAIChat();
   const [chatInput, setChatInput] = useState('');
 
   const handleSendMessage = () => {
-    if (!chatInput.trim()) return;
-    
-    setChatMessages(prev => [...prev, { role: 'user', text: chatInput }]);
-    
-    // Simulate bot response
-    setTimeout(() => {
-      const responses = [
-        'Parachain #7 (Parallel) shows elevated HRMP queue at 267 messages. This may impact cross-chain message latency.',
-        'Current network health is optimal. All validators are performing within expected parameters.',
-        'Anomaly detected: Finality delay increased to 12 seconds. Investigating validator performance.',
-        'Centrifuge parachain shows 54% congestion. Recommend monitoring collator liveness.'
-      ];
-      setChatMessages(prev => [...prev, { 
-        role: 'bot', 
-        text: responses[Math.floor(Math.random() * responses.length)] 
-      }]);
-    }, 1000);
-    
+    if (!chatInput.trim() || isLoading) return;
+    sendMessage(chatInput);
     setChatInput('');
   };
 
@@ -87,14 +68,14 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <GlassCard className="lg:col-span-1">
                 <h3 className="text-lg font-bold mb-4 neon-text-cyan font-mono-metrics">Heartbeat Status</h3>
-                <Heart3DCanvas status={relayStatus} className="h-64" scale={1.2} />
+                <Heart3DCanvas status={relayChain.status} className="h-64" scale={1.2} />
                 <div className="mt-4 text-center">
                   <span className={`text-2xl font-bold ${
-                    relayStatus === 'healthy' ? 'text-healthy' :
-                    relayStatus === 'warning' ? 'text-warning' :
+                    relayChain.status === 'healthy' ? 'text-healthy' :
+                    relayChain.status === 'warning' ? 'text-warning' :
                     'text-destructive'
                   }`}>
-                    {relayStatus.toUpperCase()}
+                    {relayChain.status.toUpperCase()}
                   </span>
                 </div>
               </GlassCard>
@@ -104,15 +85,15 @@ const Dashboard = () => {
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   <div className="glass-card neon-border-cyan p-4 rounded-lg">
                     <div className="text-sm text-muted-foreground font-mono-metrics">Finality</div>
-                    <div className="text-3xl font-bold text-primary">{finality}s</div>
+                    <div className="text-3xl font-bold text-primary">{relayChain.finality}s</div>
                   </div>
                   <div className="glass-card neon-border-cyan p-4 rounded-lg">
                     <div className="text-sm text-muted-foreground font-mono-metrics">Block Time</div>
-                    <div className="text-3xl font-bold text-primary">{blockProduction}s</div>
+                    <div className="text-3xl font-bold text-primary">{relayChain.blockProduction}s</div>
                   </div>
                   <div className="glass-card neon-border-cyan p-4 rounded-lg">
                     <div className="text-sm text-muted-foreground font-mono-metrics">Validators</div>
-                    <div className="text-3xl font-bold text-primary">{validatorRotation}%</div>
+                    <div className="text-3xl font-bold text-primary">{networkStatus.validatorRotation}%</div>
                   </div>
                 </div>
 
@@ -264,7 +245,7 @@ const Dashboard = () => {
                           ? 'glass-card neon-border-magenta' 
                           : 'glass-card neon-border-cyan'
                       }`}>
-                        <p className="text-sm">{msg.text}</p>
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                       </div>
                     </div>
                   ))}
