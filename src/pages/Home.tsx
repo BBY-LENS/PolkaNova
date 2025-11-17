@@ -7,7 +7,9 @@ import { Butterflies } from '@/components/Butterflies';
 import { ScanLineOverlay } from '@/components/ScanLineOverlay';
 import { CircuitBackground } from '@/components/CircuitBackground';
 import { GlassCard } from '@/components/GlassCard';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { Deer } from '@/components/Deer';
+import { Waterfall } from '@/components/Waterfall';
+import { PageTransition } from '@/components/PageTransition';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Activity, Zap, Brain, Shield } from 'lucide-react';
 
@@ -15,16 +17,14 @@ const Home = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="min-h-screen pt-16 relative">
-      <CircuitBackground />
-      <ScanLineOverlay />
-      <FlyingHearts />
-      {theme === 'light' && <Butterflies />}
-      
-      {/* Theme Toggle */}
-      <div className="fixed top-24 right-8 z-50">
-        <ThemeToggle />
-      </div>
+    <PageTransition>
+      <div className="min-h-screen pt-16 relative overflow-hidden">
+        <CircuitBackground />
+        <ScanLineOverlay />
+        <Waterfall />
+        <FlyingHearts />
+        {theme === 'light' && <Butterflies />}
+        <Deer />
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -200,7 +200,8 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 
