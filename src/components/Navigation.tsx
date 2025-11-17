@@ -25,7 +25,6 @@ export const Navigation = () => {
     { path: '/features', label: 'Features' },
     { path: '/docs', label: 'Docs' },
     { path: '/roadmap', label: 'Roadmap' },
-    { path: '/team', label: 'Team' },
     { path: '/contact', label: 'Contact' },
   ];
 
