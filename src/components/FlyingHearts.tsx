@@ -16,11 +16,11 @@ export const FlyingHearts = () => {
   useEffect(() => {
     const newHearts = Array.from({ length: 30 }, (_, i) => ({
       id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
+      x: 50 + (Math.random() - 0.5) * 10, // Start near center
+      y: 50 + (Math.random() - 0.5) * 10,
       rotation: Math.random() * 360,
-      delay: Math.random() * 5,
-      duration: 10 + Math.random() * 10,
+      delay: i * 0.1, // Stagger the releases
+      duration: 8 + Math.random() * 6,
     }));
     setHearts(newHearts);
   }, []);
@@ -31,19 +31,25 @@ export const FlyingHearts = () => {
         <motion.div
           key={heart.id}
           className="absolute"
-          initial={{ x: '50%', y: '50%', scale: 0, opacity: 0 }}
+          initial={{ 
+            x: '50%', 
+            y: '50%', 
+            scale: 0, 
+            opacity: 0,
+            rotate: 0
+          }}
           animate={{
-            x: `${heart.x}%`,
-            y: `${heart.y}%`,
-            scale: [0, 0.5, 0.5, 0],
-            opacity: [0, 1, 1, 0],
-            rotate: heart.rotation,
+            x: [`50%`, `${heart.x + 30}%`, `${heart.x + 60}%`],
+            y: [`50%`, `${heart.y - 20}%`, `${heart.y - 50}%`],
+            scale: [0, 0.8, 0.6, 0],
+            opacity: [0, 1, 0.8, 0],
+            rotate: [0, heart.rotation * 0.5, heart.rotation],
           }}
           transition={{
             duration: heart.duration,
             delay: heart.delay,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeOut"
           }}
         >
           <svg width="20" height="20" viewBox="0 0 100 110" className="neon-glow-cyan">

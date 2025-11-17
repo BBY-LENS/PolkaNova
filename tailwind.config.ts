@@ -63,6 +63,18 @@ export default {
           cyan: "hsl(var(--glow-cyan))",
           magenta: "hsl(var(--glow-magenta))",
           lime: "hsl(var(--glow-lime))",
+          purple: "hsl(var(--glow-purple))",
+          pink: "hsl(var(--glow-pink))",
+          lavender: "hsl(var(--glow-lavender))",
+          gold: "hsl(var(--glow-gold))",
+        },
+        particle: {
+          cyan: "hsl(var(--particle-cyan))",
+          magenta: "hsl(var(--particle-magenta))",
+          purple: "hsl(var(--particle-purple))",
+          pink: "hsl(var(--particle-pink))",
+          lavender: "hsl(var(--particle-lavender))",
+          sky: "hsl(var(--particle-sky))",
         },
       },
       borderRadius: {
