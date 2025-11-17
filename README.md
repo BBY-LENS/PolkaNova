@@ -84,11 +84,6 @@ A clean, component-driven foundation supporting long-term growth.
 
 ---
 
-## 🧾 License  
-This project is licensed under the **MIT License** (or the license of your choosing).  
-See the `LICENSE` file for details.
-
----
 
 ### ⭐ If PolkaNova inspires you, consider starring the repository —  
 it helps the neon spread across the network.
