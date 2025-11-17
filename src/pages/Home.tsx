@@ -7,8 +7,8 @@ import { Butterflies } from '@/components/Butterflies';
 import { ScanLineOverlay } from '@/components/ScanLineOverlay';
 import { CircuitBackground } from '@/components/CircuitBackground';
 import { GlassCard } from '@/components/GlassCard';
-import { Deer } from '@/components/Deer';
 import { Waterfall } from '@/components/Waterfall';
+import { Sparkles } from '@/components/Sparkles';
 import { PageTransition } from '@/components/PageTransition';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Activity, Zap, Brain, Shield } from 'lucide-react';
@@ -24,7 +24,7 @@ const Home = () => {
         <Waterfall />
         <FlyingHearts />
         {theme === 'light' && <Butterflies />}
-        <Deer />
+        <Sparkles />
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">

@@ -14,7 +14,6 @@ import About from "./pages/About";
 import Features from "./pages/Features";
 import Docs from "./pages/Docs";
 import Roadmap from "./pages/Roadmap";
-import Team from "./pages/Team";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -37,9 +36,8 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/features" element={<Features />} />
             <Route path="/docs" element={<Docs />} />
-            <Route path="/roadmap" element={<Roadmap />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/contact" element={<Contact />} />
+          <Route path="/roadmap" element={<Roadmap />} />
+          <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
